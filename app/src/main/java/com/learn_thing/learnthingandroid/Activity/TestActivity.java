@@ -15,7 +15,6 @@ import com.learn_thing.learnthingandroid.DataBase.TestAdapter;
 import com.learn_thing.learnthingandroid.Entity.TestQuestion;
 import com.learn_thing.learnthingandroid.R;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,7 +78,6 @@ public class TestActivity extends AppCompatActivity {
                         }
                         case R.id.answer1Button: {
                             answersMap.put(currentQuestion, "1");
-
                             break;
                         }
                         case R.id.answer2Button: {
@@ -94,8 +92,6 @@ public class TestActivity extends AppCompatActivity {
                             answersMap.put(currentQuestion, "4");
                             break;
                         }
-                        default:
-                            break;
                     }
                     if (id != -1) {
                         radioGroup.clearCheck();
@@ -132,20 +128,17 @@ public class TestActivity extends AppCompatActivity {
         }
     }
 
-    public void showMap(){
-        for(String values : answersMap.values()){
+    public void showMap() {
+        String s = "";
+        for (String values : answersMap.values()) {
+            s+=values+"\n";
             System.out.println(values);
         }
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     public List<TestQuestion> getQuestions() {
         TestAdapter testAdapter = new TestAdapter(activity);
-        try {
-            testAdapter.createDatabase();
-            testAdapter = testAdapter.open();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         return testAdapter.getTestTable();
     }
 }

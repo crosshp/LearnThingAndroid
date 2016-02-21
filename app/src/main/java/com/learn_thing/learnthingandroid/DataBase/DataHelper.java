@@ -31,7 +31,7 @@ public class DataHelper extends SQLiteOpenHelper {
 
     public void createDataBase() throws IOException {
         //If the database does not exist, copy it from the assets.
-
+     //   mContext.deleteDatabase(DB_NAME);
         boolean mDataBaseExist = checkDataBase();
         if (!mDataBaseExist) {
             this.getReadableDatabase();
