@@ -46,7 +46,7 @@
                 android:orientation="vertical">
 
                 <RadioButton
-                    android:id="@+id/radioButton2"
+                    android:id="@+id/answer1Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -56,7 +56,7 @@
                     android:textColor="@color/secondary_text" />
 
                 <RadioButton
-                    android:id="@+id/radioButton3"
+                    android:id="@+id/answer2Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -66,7 +66,7 @@
                     android:textColor="@color/secondary_text" />
 
                 <RadioButton
-                    android:id="@+id/radioButton4"
+                    android:id="@+id/answer3Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
@@ -76,7 +76,7 @@
                     android:textColor="@color/secondary_text" />
 
                 <RadioButton
-                    android:id="@+id/radioButton"
+                    android:id="@+id/answer4Button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
