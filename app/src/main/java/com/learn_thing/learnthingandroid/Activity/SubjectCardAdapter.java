@@ -70,7 +70,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         personViewHolder.name.setText("Subject " + i);
         personViewHolder.statusValue.setText("Ololo " + i);
         personViewHolder.checkBox.setChecked(false);
-        try (InputStream is = view.getContext().getResources().getAssets().open("pomadoro.jpg")) {
+        try (InputStream is = view.getContext().getResources().getAssets().open("ocean.png")) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
             personViewHolder.imageView.setImageBitmap(bitmapFactory);
         } catch (IOException e) {

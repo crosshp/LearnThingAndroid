@@ -4,10 +4,8 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="4dp"
     card_view:cardBackgroundColor="@color/card_color"
-    card_view:cardCornerRadius="1dp"
-    card_view:cardElevation="7dp">
+    card_view:cardElevation="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,9 +14,10 @@
         <ImageView
             android:id="@+id/imageTechnic"
             android:layout_width="match_parent"
-            android:scaleType="centerCrop"
             android:layout_height="150dp"
-            android:layout_alignParentTop="true" />
+            android:layout_alignParentTop="true"
+            android:contentDescription="@string/img_attr"
+            android:scaleType="centerCrop" />
 
         <RelativeLayout
             android:id="@+id/headerTextLayout"
@@ -31,12 +30,12 @@
                 android:id="@+id/headerCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/card_header"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/card_color"
-                android:layout_centerInParent="true" />
+                android:textColor="@color/card_color" />
         </RelativeLayout>
 
         <TextView
@@ -48,7 +47,7 @@
             android:layout_marginTop="5dp"
             android:text="@string/status"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/secondary_text" />
+            android:textColor="@color/primary_text" />
 
         <TextView
             android:id="@+id/statusValue"
@@ -58,27 +57,54 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="5dp"
             android:layout_toEndOf="@+id/statusTextView"
+            android:fontFamily="sans-serif-light"
             android:text="@string/process"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/secondary_text" />
 
         <TextView
             android:id="@+id/remindTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/statusTextView"
+            android:layout_below="@+id/methodicTextView"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
             android:text="@string/remind"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="@color/secondary_text" />
+            android:textColor="@color/primary_text" />
 
         <CheckBox
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/statusValue"
+            android:layout_below="@+id/methodicValue"
             android:layout_marginLeft="5dp"
             android:layout_toEndOf="@+id/remindTextView" />
+
+
+        <TextView
+            android:id="@+id/methodicTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/statusTextView"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/methodic"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/primary_text" />
+
+        <TextView
+            android:id="@+id/methodicValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/methodicTextView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toEndOf="@+id/methodicTextView"
+            android:fontFamily="sans-serif-light"
+            android:text="Помадоро"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/secondary_text" />
 
     </RelativeLayout>
 </android.support.v7.widget.CardView>

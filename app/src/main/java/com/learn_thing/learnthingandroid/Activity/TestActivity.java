@@ -35,6 +35,7 @@ public class TestActivity extends AppCompatActivity {
     RadioButton answer2Button = null;
     RadioButton answer3Button = null;
     RadioButton answer4Button = null;
+    TestAdapter testAdapter = null;
 
 
     @Override
@@ -103,10 +104,18 @@ public class TestActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        Toast.makeText(activity, "Тест не пройдено!", Toast.LENGTH_LONG).show();
+        testAdapter.close();
+        finish();
+    }
+
     public void checkNextQuestion(int position) {
         // End of Test
         if (position == testQuestions.size()) {
             Toast.makeText(activity, "Тест успішно пройдений!", Toast.LENGTH_LONG).show();
+            testAdapter.close();
             Intent intent = new Intent(activity, MainActivity.class);
             activity.startActivity(intent);
             showMap();
@@ -131,14 +140,14 @@ public class TestActivity extends AppCompatActivity {
     public void showMap() {
         String s = "";
         for (String values : answersMap.values()) {
-            s+=values+"\n";
+            s += values + "\n";
             System.out.println(values);
         }
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     public List<TestQuestion> getQuestions() {
-        TestAdapter testAdapter = new TestAdapter(activity);
+        testAdapter = new TestAdapter(activity);
         return testAdapter.getTestTable();
     }
 }

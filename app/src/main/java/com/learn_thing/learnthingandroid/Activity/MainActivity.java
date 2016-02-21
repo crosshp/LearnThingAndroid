@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.learn_thing.learnthingandroid.R;
 
@@ -21,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     MainActivity activity = this;
     SubjectCardAdapter cardAdapter = null;
     RecyclerView recyclerView = null;
+    String name = null;
+
+    @Override
+    public void onBackPressed() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        Intent intent = getIntent();
+        name = intent.getStringExtra(HelloActivity.NAME);
+        Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
