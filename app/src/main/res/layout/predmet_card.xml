@@ -16,9 +16,9 @@
         <ImageView
             android:id="@+id/imageTechnic"
             android:layout_width="match_parent"
+            android:scaleType="centerCrop"
             android:layout_height="150dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/statusTextView" />
+            android:layout_alignParentTop="true" />
 
         <RelativeLayout
             android:id="@+id/headerTextLayout"
@@ -31,12 +31,12 @@
                 android:id="@+id/headerCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="5dp"
                 android:fontFamily="sans-serif-light"
                 android:text="@string/card_header"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@color/card_color" />
+                android:textColor="@color/card_color"
+                android:layout_centerInParent="true" />
         </RelativeLayout>
 
         <TextView
@@ -59,8 +59,7 @@
             android:layout_marginRight="5dp"
             android:layout_toEndOf="@+id/statusTextView"
             android:text="@string/process"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#f5ff65" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/remindTextView"

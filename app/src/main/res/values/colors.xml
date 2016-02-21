@@ -9,5 +9,5 @@
     <color name="secondary_text">#727272</color>
     <color name="card_color">#FFFFFF</color>
     <color name="activity_card">#FAFAFA</color>
-    <color name="transperency_black">#60000000</color>
+    <color name="transperency_black">#50000000</color>
 </resources>
