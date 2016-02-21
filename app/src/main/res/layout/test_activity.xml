@@ -23,6 +23,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
                 android:ems="10"
+                android:fontFamily="sans-serif-light"
                 android:inputType="textMultiLine"
                 android:textColor="@color/secondary_text"
                 android:visibility="invisible" />
@@ -33,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="25dp"
+                android:fontFamily="sans-serif-light"
                 android:text="@string/test"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/primary_text" />
@@ -52,6 +54,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
                     android:text="@string/bred"
                     android:textColor="@color/secondary_text" />
 
@@ -62,6 +65,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
                     android:text="@string/bred"
                     android:textColor="@color/secondary_text" />
 
@@ -72,6 +76,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
                     android:text="@string/bred"
                     android:textColor="@color/secondary_text" />
 
@@ -82,6 +87,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginTop="15dp"
+                    android:fontFamily="sans-serif-light"
                     android:text="@string/bred"
                     android:textColor="@color/secondary_text" />
 
@@ -92,12 +98,12 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
                 android:layout_below="@+id/groupButton"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/next"
-                android:textColor="?attr/colorPrimary"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp" />
+                android:textColor="?attr/colorPrimary" />
 
         </RelativeLayout>
     </ScrollView>

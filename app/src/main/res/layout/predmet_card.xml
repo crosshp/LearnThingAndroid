@@ -4,22 +4,82 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    card_view:cardCornerRadius="2dp"
-    card_view:cardElevation="13dp">
+    android:layout_margin="4dp"
+    card_view:cardBackgroundColor="@color/card_color"
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="7dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ImageView
+            android:id="@+id/imageTechnic"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/statusTextView" />
+
+        <RelativeLayout
+            android:id="@+id/headerTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageTechnic"
+            android:background="@color/transperency_black">
+
+            <TextView
+                android:id="@+id/headerCard"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/card_header"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/card_color" />
+        </RelativeLayout>
+
         <TextView
+            android:id="@+id/statusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/card_header"
-            android:id="@+id/headerCard"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="5dp" />
+            android:layout_below="@+id/headerTextLayout"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/status"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/secondary_text" />
+
+        <TextView
+            android:id="@+id/statusValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/statusTextView"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
+            android:layout_toEndOf="@+id/statusTextView"
+            android:text="@string/process"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#f5ff65" />
+
+        <TextView
+            android:id="@+id/remindTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/statusTextView"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/remind"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/secondary_text" />
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/statusValue"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/remindTextView" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

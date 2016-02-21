@@ -5,4 +5,7 @@
     <string name="next">Наступне</string>
     <string name="bred">Це відповідь на тестове питання. Олололололололололололололололололололололололлоллллллллллоооооооооооооооооооооооооллллллллл</string>
     <string name="card_header">Назва предмету</string>
+    <string name="status">Статус виконання:</string>
+    <string name="process">В процесі</string>
+    <string name="remind">Нагадувати про предмет</string>
 </resources>
