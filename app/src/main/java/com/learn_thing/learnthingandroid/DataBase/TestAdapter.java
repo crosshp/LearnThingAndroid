@@ -22,6 +22,7 @@ public class TestAdapter {
 
     public TestAdapter(Context context) {
         this.mContext = context;
+
         mDbHelper = new DataHelper(mContext);
         try {
             createDatabase();

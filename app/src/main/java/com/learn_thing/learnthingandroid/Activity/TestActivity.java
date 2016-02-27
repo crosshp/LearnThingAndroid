@@ -3,6 +3,7 @@ package com.learn_thing.learnthingandroid.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,8 +51,10 @@ public class TestActivity extends AppCompatActivity {
         answer2Button = (RadioButton) findViewById(R.id.answer2Button);
         answer3Button = (RadioButton) findViewById(R.id.answer3Button);
         answer4Button = (RadioButton) findViewById(R.id.answer4Button);
-
         testQuestions = getQuestions();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         checkNextQuestion(currentQuestion);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +147,15 @@ public class TestActivity extends AppCompatActivity {
             System.out.println(values);
         }
         Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public List<TestQuestion> getQuestions() {

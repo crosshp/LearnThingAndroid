@@ -1,15 +1,30 @@
 package com.learn_thing.learnthingandroid.Entity;
 
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Andrew on 21.02.2016.
  */
-public class SubjectCard {
+public class SubjectCard extends RealmObject {
     private String name;
     private String status;
     private boolean isReminder;
 
+    @PrimaryKey
+    private int id = 0;
+
     public String getName() {
         return name;
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {

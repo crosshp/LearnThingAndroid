@@ -1,5 +1,6 @@
 package com.learn_thing.learnthingandroid.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,20 +10,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.RatingBar;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
+import com.learn_thing.learnthingandroid.Activity.Adapters.RecyclerClickListener;
+import com.learn_thing.learnthingandroid.Activity.Adapters.SubjectCardAdapter;
+import com.learn_thing.learnthingandroid.DataBase.NoteDB;
+import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
+import com.learn_thing.learnthingandroid.Entity.Note;
+import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
+import com.mikepenz.materialdrawer.accountswitcher.AccountHeaderBuilder;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
+import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
+import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     MainActivity activity = this;
     SubjectCardAdapter cardAdapter = null;
     RecyclerView recyclerView = null;
     String name = null;
+    Drawer drawer = null;
+    Toolbar toolbar = null;
 
     @Override
     public void onBackPressed() {
@@ -32,16 +49,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = getIntent();
+        initializeMenu();
+        final Intent intent = getIntent();
         name = intent.getStringExtra(HelloActivity.NAME);
         Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
+        SubjectDB subjectDB = new SubjectDB(activity);
+        for(int i = 0; i < 10; i ++){
+                SubjectCard subjectCard = new SubjectCard();
+                subjectCard.setName("Name"+i);
+                subjectCard.setStatus("Status");
+                subjectCard.setIsReminder(true);
+                subjectDB.saveSubject(subjectCard);
+        }
+        NoteDB noteDB = new NoteDB(activity);
+        List<SubjectCard> subjectCardList = subjectDB.getAllRealmResultSubjects();
+        for(int i = 0; i < subjectCardList.size(); i++) {
+            for(int j = 0; j< 4; j++) {
+                Note note = new Note();
+                note.setIdSubject(subjectCardList.get(i).getId());
+                note.setNoteName("name"+j);
+                note.setNoteText("Text"+j);
+                noteDB.saveNote(note);
+            }
+        }
+
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        cardAdapter = new SubjectCardAdapter();
+        cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects());
         recyclerView.setAdapter(cardAdapter);
 
         Window window = activity.getWindow();
@@ -50,6 +88,20 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(activity.getResources().getColor(R.color.status_bar));
         }
+
+        recyclerView.addOnItemTouchListener(new RecyclerClickListener(this) {
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+
+            @Override
+            public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+                Intent intentForNote = new Intent(activity, NotesActivity.class);
+                intentForNote.putExtra("id", cardAdapter.getData().get(position).getId());
+                activity.startActivity(intentForNote);
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -63,25 +115,60 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
+    public void initializeMenu() {
+        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem().withEmail("your@mail.com").withName("Andrew").withIcon(getResources().getDrawable(R.drawable.ic_account));
+        final AccountHeader accountHeader = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.menu1).addProfiles(profileDrawerItem).build();
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        final SecondaryDrawerItem menu_item1 = new SecondaryDrawerItem().withName(R.string.menu_item1).withIdentifier(1);//.withIcon(R.drawable.ic_menu_favor);
+        final SecondaryDrawerItem menu_item2 = new SecondaryDrawerItem().withName(R.string.menu_item2).withIdentifier(2);//.withIcon(R.drawable.ic_menu_aid).withEnabled(false);
+        final SecondaryDrawerItem menu_item3 = new SecondaryDrawerItem().withName(R.string.menu_item3).withIdentifier(3);//.withIcon(R.drawable.ic_menu_about).withEnabled(false);
+        final SecondaryDrawerItem menu_item4 = new SecondaryDrawerItem().withName(R.string.menu_item4).withIdentifier(4);//.withIcon(R.drawable.ic_menu_help).withEnabled(false);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        drawer = new DrawerBuilder().
+                withActivity(this).
+                withDisplayBelowToolbar(true).withToolbar(toolbar).
+                withActionBarDrawerToggleAnimated(true).
+                addDrawerItems(menu_item1, menu_item2, menu_item3, menu_item4).
+                withAccountHeader(accountHeader).
+                withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
+                    @Override
+                    public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
+                        switch (iDrawerItem.getIdentifier()) {
+                            case 1: {
+                                Intent intent = new Intent(activity, NotesActivity.class);
+                                activity.startActivity(intent);
+                                break;
+                            }
+                            case 2: {
 
-        return super.onOptionsItemSelected(item);
+                                break;
+                            }
+                            case 3: {
+
+                                break;
+                            }
+                            case 4: {
+
+                                break;
+                            }
+                        }
+                        return true;
+                    }
+                }).withOnDrawerListener(new Drawer.OnDrawerListener() {
+            @Override
+            public void onDrawerOpened(View drawerView) {
+            }
+
+            @Override
+            public void onDrawerClosed(View view) {
+
+            }
+
+            @Override
+            public void onDrawerSlide(View view, float v) {
+                InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(MainActivity.this.getCurrentFocus().getWindowToken(), 0);
+            }
+        }).build();
     }
 }

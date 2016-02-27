@@ -1,13 +1,10 @@
-package com.learn_thing.learnthingandroid.Activity;
+package com.learn_thing.learnthingandroid.Activity.Adapters;
 
 import android.annotation.TargetApi;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,11 +12,9 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -37,20 +32,13 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         return data;
     }
 
-    SubjectCardAdapter() {
-        data = new ArrayList();
-        for (int i = 0; i < 15; i++) {
-            data.add(new SubjectCard());
-        }
-    }
-
     public void addData(ArrayList<SubjectCard> arrayList) {
         for (SubjectCard subjectCard : arrayList) {
             data.add(subjectCard);
         }
     }
 
-    SubjectCardAdapter(List<SubjectCard> data) {
+    public SubjectCardAdapter(List<SubjectCard> data) {
         this.data = data;
     }
 
@@ -67,8 +55,8 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
     @Override
     public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
         SubjectCard objectItem = data.get(i);
-        personViewHolder.name.setText("Subject " + i);
-        personViewHolder.statusValue.setText("Ololo " + i);
+        personViewHolder.name.setText(objectItem.getName());
+        personViewHolder.statusValue.setText(objectItem.getStatus());
         personViewHolder.checkBox.setChecked(false);
         try (InputStream is = view.getContext().getResources().getAssets().open("ocean.png")) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
@@ -83,6 +71,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
 
     }
 
+
     @Override
     public long getItemId(int position) {
         return super.getItemId(position);
@@ -92,6 +81,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
     public int getItemCount() {
         return data.size();
     }
+
 
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         TextView name;

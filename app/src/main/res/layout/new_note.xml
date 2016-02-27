@@ -4,55 +4,42 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/helloTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70dp"
-        android:fontFamily="sans-serif-light"
-        android:text="@string/hello"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
-        android:id="@+id/nameEdit"
+        android:id="@+id/nameNoteEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/helloTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
         android:layout_marginTop="40dp"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:hint="@string/write_the_name"
+        android:hint="@string/write_name_note"
         android:inputType="textPersonName" />
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/addNewNoteButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_below="@+id/emailEdit"
+        android:layout_below="@+id/textNoteEdit"
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"
-        android:text="@string/start"
+        android:text="@string/add_note"
         android:textColor="?attr/colorPrimary" />
 
     <EditText
-        android:id="@+id/emailEdit"
+        android:id="@+id/textNoteEdit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameEdit"
+        android:layout_below="@+id/nameNoteEdit"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
         android:layout_marginTop="15dp"
         android:ems="10"
         android:fontFamily="sans-serif-light"
-        android:hint="@string/write_the_email"
+        android:hint="@string/write_text_note"
         android:inputType="textWebEmailAddress" />
 </RelativeLayout>

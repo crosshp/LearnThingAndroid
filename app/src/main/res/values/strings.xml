@@ -12,5 +12,13 @@
     <string name="methodic">Методика:</string>
     <string name="hello">Вітаємо!</string>
     <string name="write_the_name">Введіть своє ім’я</string>
+    <string name="write_the_email">Введіть свою електронну пошту</string>
     <string name="start">Почати</string>
+    <string name="menu_item1">item1</string>
+    <string name="menu_item2">item2</string>
+    <string name="menu_item3">item3</string>
+    <string name="menu_item4">item4</string>
+    <string name="add_note">Додати</string>
+    <string name="write_name_note">Введіть ім’я нотатки</string>
+    <string name="write_text_note">Напишіть нотатку</string>
 </resources>
