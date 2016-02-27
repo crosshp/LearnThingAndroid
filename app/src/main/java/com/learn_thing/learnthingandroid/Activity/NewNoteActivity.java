@@ -50,10 +50,4 @@ public class NewNoteActivity extends AppCompatActivity {
             }
         });
     }
-
-    public List<Note> getAllNotes() {
-        NoteDB noteDB = new NoteDB(activity);
-        List<Note> list = noteDB.getAllNotes(idSubject);
-        return list;
-    }
 }

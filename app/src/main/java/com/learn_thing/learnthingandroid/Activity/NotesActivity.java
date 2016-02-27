@@ -30,7 +30,6 @@ public class NotesActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Toast.makeText(activity, "On resume", Toast.LENGTH_SHORT).show();
         cardAdapter.setData(getAllNotes());
         cardAdapter.notifyDataSetChanged();
     }
@@ -51,7 +50,7 @@ public class NotesActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, NewNoteActivity.class);
-                intent.putExtra("id",idSubject);
+                intent.putExtra("id", idSubject);
                 activity.startActivity(intent);
             }
         });

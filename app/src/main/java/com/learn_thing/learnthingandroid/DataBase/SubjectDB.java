@@ -21,7 +21,7 @@ public class SubjectDB {
     public SubjectDB(Context context) {
         this.context = context;
         RealmConfiguration config = new RealmConfiguration.Builder(context).build();
-        //   Realm.deleteRealm(config);
+        //Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
 
         realm = Realm.getInstance(config);
@@ -36,7 +36,11 @@ public class SubjectDB {
     }
 
     public int getNextKey() {
-        return realm.where(SubjectCard.class).max("id").intValue()+1;
+        try {
+            return realm.where(SubjectCard.class).max("id").intValue() + 1;
+        } catch (NullPointerException e) {
+            return 0;
+        }
     }
 
     public List<SubjectCard> getAllRealmResultSubjects() {

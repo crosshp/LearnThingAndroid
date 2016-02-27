@@ -56,25 +56,6 @@ public class MainActivity extends AppCompatActivity {
         name = intent.getStringExtra(HelloActivity.NAME);
         Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
         SubjectDB subjectDB = new SubjectDB(activity);
-        for(int i = 0; i < 10; i ++){
-                SubjectCard subjectCard = new SubjectCard();
-                subjectCard.setName("Name"+i);
-                subjectCard.setStatus("Status");
-                subjectCard.setIsReminder(true);
-                subjectDB.saveSubject(subjectCard);
-        }
-        NoteDB noteDB = new NoteDB(activity);
-        List<SubjectCard> subjectCardList = subjectDB.getAllRealmResultSubjects();
-        for(int i = 0; i < subjectCardList.size(); i++) {
-            for(int j = 0; j< 4; j++) {
-                Note note = new Note();
-                note.setIdSubject(subjectCardList.get(i).getId());
-                note.setNoteName("name"+j);
-                note.setNoteText("Text"+j);
-                noteDB.saveNote(note);
-            }
-        }
-
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);

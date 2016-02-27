@@ -12,7 +12,7 @@ public class SubjectCard extends RealmObject {
     private boolean isReminder;
 
     @PrimaryKey
-    private int id = 0;
+    private int id;
 
     public String getName() {
         return name;
