@@ -46,7 +46,15 @@ public class SubjectDB {
     public List<SubjectCard> getAllRealmResultSubjects() {
         RealmQuery<SubjectCard> query = realm.where(SubjectCard.class);
         RealmResults<SubjectCard> result = query.findAll();
+        result.sort("id");
         return result.subList(0, result.size());
+    }
+
+    public void deleteById(int id) {
+        RealmResults<SubjectCard> result = realm.where(SubjectCard.class).equalTo("id",id).findAll();
+        realm.beginTransaction();
+        result.removeLast();
+        realm.commitTransaction();
     }
 
 }

@@ -1,6 +1,8 @@
 package com.learn_thing.learnthingandroid.Activity.Adapters;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
@@ -9,9 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
 
@@ -26,7 +31,12 @@ import java.util.List;
 public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.PersonViewHolder> {
     private View view = null;
 
+    public void setData(List<SubjectCard> data) {
+        this.data = data;
+    }
+
     List<SubjectCard> data;
+    SubjectCardAdapter adapter = this;
 
     public List<SubjectCard> getData() {
         return data;
@@ -53,7 +63,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
-    public void onBindViewHolder(PersonViewHolder personViewHolder, int i) {
+    public void onBindViewHolder(final PersonViewHolder personViewHolder, int i) {
         SubjectCard objectItem = data.get(i);
         personViewHolder.name.setText(objectItem.getName());
         personViewHolder.statusValue.setText(objectItem.getStatus());
@@ -64,6 +74,39 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         } catch (IOException e) {
             e.printStackTrace();
         }
+        personViewHolder.closeButton.setOnClickListener(new View.OnClickListener() {
+
+            public void showAlert() {
+                AlertDialog.Builder ad = new AlertDialog.Builder(personViewHolder.itemView.getContext());
+                ad.setTitle("Увага");  // заголовок
+                ad.setMessage("Ви впевнені, що хочете видалити"); // сообщение
+                ad.setPositiveButton("Так", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        int position = personViewHolder.getAdapterPosition();
+                        SubjectDB subjectDB = new SubjectDB(personViewHolder.itemView.getContext());
+                        subjectDB.deleteById(data.get(position).getId());
+                        adapter.setData(subjectDB.getAllRealmResultSubjects());
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+                ad.setNegativeButton("Ні", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int arg1) {
+                        return;
+                    }
+                });
+                ad.setCancelable(true);
+                ad.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    public void onCancel(DialogInterface dialog) {
+                        return;
+                    }
+                }).show();
+            }
+
+            @Override
+            public void onClick(View v) {
+                showAlert();
+            }
+        });
 
     }
 
@@ -88,6 +131,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         TextView statusValue;
         CheckBox checkBox = null;
         ImageView imageView = null;
+        ImageButton closeButton = null;
 
         PersonViewHolder(final View itemView) {
             super(itemView);
@@ -95,7 +139,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
             statusValue = (TextView) itemView.findViewById(R.id.statusValue);
             checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
             imageView = (ImageView) itemView.findViewById(R.id.imageTechnic);
-
+            closeButton = (ImageButton) itemView.findViewById(R.id.deleteCardButton);
         }
     }
 

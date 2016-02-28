@@ -106,5 +106,14 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/secondary_text" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:background="@color/transperency"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteCardButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_close_black_36dp" />
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

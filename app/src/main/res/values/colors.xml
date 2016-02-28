@@ -10,4 +10,5 @@
     <color name="card_color">#FFFFFF</color>
     <color name="activity_card">#FAFAFA</color>
     <color name="transperency_black">#50000000</color>
+    <color name="transperency">#00000000</color>
 </resources>
