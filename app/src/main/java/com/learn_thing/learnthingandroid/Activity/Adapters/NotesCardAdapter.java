@@ -39,7 +39,6 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Pers
 
     public NotesCardAdapter(List<Note> data) {
         this.data = data;
-        System.out.println(data.size());
     }
 
     @Override

@@ -5,15 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicAdapter;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
+import com.learn_thing.learnthingandroid.Entity.Methodic;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Andrew on 28.02.2016.
@@ -25,6 +32,8 @@ public class SubjectActivity extends AppCompatActivity {
     ImageView image = null;
     Spinner spinner = null;
     TextView nameSubject = null;
+    RecyclerView recyclerView = null;
+    MethodicAdapter adapter = null;
     int id = 0;
 
     @Override
@@ -47,8 +56,28 @@ public class SubjectActivity extends AppCompatActivity {
         SubjectDB subjectDB = new SubjectDB(activity);
         subjectCard = subjectDB.getSubjectById(id);
 
+        recyclerView = (RecyclerView) findViewById(R.id.notesList);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(llm);
+        adapter = new MethodicAdapter(getAllMethodics());
+        recyclerView.setAdapter(adapter);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+
+    private List<Methodic> getAllMethodics() {
+        List<Methodic> list = new ArrayList<>();
+        for(int i = 0; i < 10; i++) {
+            Methodic methodic = new Methodic();
+            methodic.setName("Ololo "+i);
+            methodic.setDescription("Description " + i);
+            methodic.setImg("menu.jpg");
+            list.add(methodic);
+        }
+        return list;
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
