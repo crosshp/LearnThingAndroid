@@ -13,6 +13,7 @@
         <activity android:name=".Activity.NotesActivity" />
         <activity android:name=".Activity.NewNoteActivity" />
         <activity android:name=".Activity.SubjectActivity" />
+        <activity android:name=".Activity.CreateSubjectActivity" />
         <activity android:name=".Activity.HelloActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
