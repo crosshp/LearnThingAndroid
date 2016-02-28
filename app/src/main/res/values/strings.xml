@@ -21,4 +21,16 @@
     <string name="add_note">Додати</string>
     <string name="write_name_note">Введіть ім’я нотатки</string>
     <string name="write_text_note">Напишіть нотатку</string>
+
+    <array name="status_array">
+        <item>
+            В процесі
+        </item>
+        <item>
+            Не вивчаю
+        </item>
+        <item>
+            Активно вивчаю
+        </item>
+    </array>
 </resources>

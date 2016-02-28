@@ -43,6 +43,14 @@ public class SubjectDB {
         }
     }
 
+    public SubjectCard getSubjectById(int id) {
+        try {
+            return realm.where(SubjectCard.class).equalTo("id", id).findFirst();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public List<SubjectCard> getAllRealmResultSubjects() {
         RealmQuery<SubjectCard> query = realm.where(SubjectCard.class);
         RealmResults<SubjectCard> result = query.findAll();
@@ -51,7 +59,7 @@ public class SubjectDB {
     }
 
     public void deleteById(int id) {
-        RealmResults<SubjectCard> result = realm.where(SubjectCard.class).equalTo("id",id).findAll();
+        RealmResults<SubjectCard> result = realm.where(SubjectCard.class).equalTo("id", id).findAll();
         realm.beginTransaction();
         result.removeLast();
         realm.commitTransaction();

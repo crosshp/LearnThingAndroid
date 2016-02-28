@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-                Intent intentForNote = new Intent(activity, NotesActivity.class);
-                intentForNote.putExtra("id", cardAdapter.getData().get(position).getId());
+                Intent intentForNote = new Intent(activity, SubjectActivity.class);
+                SubjectCard subjectCard = cardAdapter.getData().get(position);
+                intentForNote.putExtra("id", subjectCard.getId());
                 activity.startActivity(intentForNote);
             }
         });
