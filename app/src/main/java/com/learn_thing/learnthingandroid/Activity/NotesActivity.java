@@ -47,6 +47,7 @@ public class NotesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Notes");
         idSubject = getIntent().getIntExtra("id", -1);
         recyclerView = (RecyclerView) findViewById(R.id.notesList);
         LinearLayoutManager llm = new LinearLayoutManager(this);

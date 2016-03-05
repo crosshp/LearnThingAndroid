@@ -27,6 +27,7 @@ public class NewNoteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_note);
+        getSupportActionBar().setTitle("New note");
         idSubject = getIntent().getIntExtra("id", -1);
         button = (Button) findViewById(R.id.addNewNoteButton);
         nameEdit = (EditText) findViewById(R.id.nameNoteEdit);

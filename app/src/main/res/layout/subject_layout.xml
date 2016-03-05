@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
+    android:fitsSystemWindows="true">
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:fitsSystemWindows="true"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -11,7 +17,7 @@
         <ImageView
             android:id="@+id/imageSubject"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
+            android:layout_height="150dp"
             android:layout_alignParentTop="true"
             android:contentDescription="@string/img_attr"
             android:scaleType="centerCrop"
@@ -35,14 +41,6 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/card_color" />
         </RelativeLayout>
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/writeNoteButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_anchor="@id/headerTextLayout"
-            app:layout_anchorGravity="bottom|right|end"
-            android:src="@drawable/ic_border_color" />
 
         <TextView
             android:id="@+id/statusTextView"
@@ -75,4 +73,15 @@
 
 
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/writeNoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:layout_anchorGravity="bottom|right|end"
+        android:src="@drawable/ic_border_color"
+        app:layout_anchor="@id/headerTextLayout" />
 </android.support.design.widget.CoordinatorLayout>

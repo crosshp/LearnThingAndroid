@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     Drawer drawer = null;
     Toolbar toolbar = null;
 
+
     @Override
     public void onBackPressed() {
     }
@@ -50,16 +51,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("Subjects");
         setSupportActionBar(toolbar);
         initializeMenu();
         final Intent intent = getIntent();
         name = intent.getStringExtra(HelloActivity.NAME);
         Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
-        SubjectDB subjectDB = new SubjectDB(activity);
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
+        SubjectDB subjectDB = new SubjectDB(activity);
         cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects());
         recyclerView.setAdapter(cardAdapter);
 
@@ -78,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-                Intent intentForNote = new Intent(activity, SubjectActivity.class);
+               // Intent intentForNote = new Intent(activity, SubjectActivity.class);
+                Intent intentForNote = new Intent(activity, AnimateToolbar.class);
                 SubjectCard subjectCard = cardAdapter.getData().get(position);
                 intentForNote.putExtra("id", subjectCard.getId());
                 activity.startActivity(intentForNote);
@@ -89,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, CreateSubjectActivity.class);
+                Intent intent = new Intent(activity, NewNoteActivity.class);
+                Toast.makeText(activity,"Ya zdec",Toast.LENGTH_SHORT).show();
                 view.getContext().startActivity(intent);
                /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();*/
@@ -153,4 +157,16 @@ public class MainActivity extends AppCompatActivity {
             }
         }).build();
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SubjectDB subjectDB = new SubjectDB(activity);
+        for(SubjectCard subject:subjectDB.getAllRealmResultSubjects()){
+            System.out.println(subject.getId());
+        }
+        cardAdapter.setData(subjectDB.getAllRealmResultSubjects());
+        cardAdapter.notifyDataSetChanged();
+    }
+
 }

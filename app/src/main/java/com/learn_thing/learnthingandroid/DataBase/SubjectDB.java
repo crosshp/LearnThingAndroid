@@ -16,19 +16,22 @@ import io.realm.RealmResults;
  */
 public class SubjectDB {
     Context context = null;
+
+    public Realm getRealm() {
+        return realm;
+    }
+
     Realm realm = null;
 
     public SubjectDB(Context context) {
         this.context = context;
         RealmConfiguration config = new RealmConfiguration.Builder(context).build();
-        //Realm.deleteRealm(config);
+        // Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
-
         realm = Realm.getInstance(config);
     }
 
     public void saveSubject(SubjectCard subjectCard) {
-
         realm.beginTransaction();
         subjectCard.setId(getNextKey());
         realm.copyToRealm(subjectCard);
@@ -49,6 +52,13 @@ public class SubjectDB {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public void beginTransaction() {
+        realm.beginTransaction();
+    }
+    public void commitTransaction() {
+        realm.commitTransaction();
     }
 
     public List<SubjectCard> getAllRealmResultSubjects() {

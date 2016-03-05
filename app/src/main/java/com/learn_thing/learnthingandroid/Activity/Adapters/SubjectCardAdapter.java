@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Andrew on 23.07.2015.
@@ -68,7 +69,8 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         personViewHolder.name.setText(objectItem.getName());
         personViewHolder.statusValue.setText(objectItem.getStatus());
         personViewHolder.checkBox.setChecked(false);
-        try (InputStream is = view.getContext().getResources().getAssets().open("ocean.png")) {
+        int randomPaint = (int) (Math.random() * 5) + 1;
+        try (InputStream is = view.getContext().getResources().getAssets().open("imageCard"+randomPaint+".jpg")) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
             personViewHolder.imageView.setImageBitmap(bitmapFactory);
         } catch (IOException e) {

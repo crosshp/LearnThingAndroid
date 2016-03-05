@@ -34,7 +34,8 @@
             android:ems="10"
             android:fontFamily="sans-serif-light"
             android:hint="@string/write_motivation"
-            android:inputType="textWebEmailAddress" />
+            android:inputType="textWebEmailAddress"
+            android:maxLength="100" />
 
 
         <Button

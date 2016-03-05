@@ -53,6 +53,7 @@ public class TestActivity extends AppCompatActivity {
         answer4Button = (RadioButton) findViewById(R.id.answer4Button);
         testQuestions = getQuestions();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Test");
 
 
         checkNextQuestion(currentQuestion);
