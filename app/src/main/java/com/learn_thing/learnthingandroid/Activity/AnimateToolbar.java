@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicAdapter;
 import com.learn_thing.learnthingandroid.R;
@@ -33,7 +31,7 @@ public class AnimateToolbar extends Activity {
         collapsingToolbar.setExpandedTitleColor(Color.WHITE);
 
 
-        recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
+       // recyclerView = (RecyclerView) findViewById(R.id.scrollableview);
 
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -51,26 +49,8 @@ public class AnimateToolbar extends Activity {
 
         if (simpleRecyclerAdapter == null) {
             simpleRecyclerAdapter = new MethodicAdapter(null);
-            //recyclerView.setAdapter(simpleRecyclerAdapter);
+            //listView.setAdapter(adapter);
         }
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
-            case R.id.action_settings:
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 }

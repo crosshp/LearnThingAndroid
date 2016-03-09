@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     card_view:cardBackgroundColor="@color/card_color"
-    card_view:cardElevation="5dp">
+    card_view:cardElevation="7dp">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,24 +1,28 @@
 package com.learn_thing.learnthingandroid.Activity;
 
 
+import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicAdapter;
+import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicListAdapter;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.Methodic;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
+import com.learn_thing.learnthingandroid.VersionModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +30,17 @@ import java.util.List;
 /**
  * Created by Andrew on 28.02.2016.
  */
-public class SubjectActivity extends AppCompatActivity {
+public class SubjectActivity extends Activity {
     FloatingActionButton writeNoteButton = null;
     SubjectActivity activity = this;
     SubjectCard subjectCard = null;
     ImageView image = null;
     Spinner spinner = null;
-    TextView nameSubject = null;
-    RecyclerView recyclerView = null;
-    MethodicAdapter adapter = null;
+    ListView listView = null;
     String currentStatus = "";
     int id = 0;
+    CollapsingToolbarLayout collapsingToolbar;
+    MethodicListAdapter adapter;
 
     @Override
     protected void onPause() {
@@ -51,10 +55,31 @@ public class SubjectActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.subject_layout);
-        image = (ImageView) findViewById(R.id.imageSubject);
+
+        setContentView(R.layout.activity_animate_toolbar);
+        collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
+        collapsingToolbar.setExpandedTitleColor(Color.WHITE);
+
+        listView = (ListView) findViewById(R.id.listView);
+
+        List<String> listData = new ArrayList<String>();
+        int ct = 0;
+        for (int i = 0; i < VersionModel.data.length * 2; i++) {
+            listData.add(VersionModel.data[ct]);
+            ct++;
+            if (ct == VersionModel.data.length) {
+                ct = 0;
+            }
+        }
+
+        if (adapter == null) {
+            adapter = new MethodicListAdapter(activity,getAllMethodics());
+            listView.setAdapter(adapter);
+        }
+
+        image = (ImageView) findViewById(R.id.header);
         spinner = (Spinner) findViewById(R.id.statusSpinner);
-        nameSubject = (TextView) findViewById(R.id.headerCard);
         id = getIntent().getIntExtra("id", 0);
         writeNoteButton = (FloatingActionButton) findViewById(R.id.writeNoteButton);
         writeNoteButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +92,7 @@ public class SubjectActivity extends AppCompatActivity {
         });
         SubjectDB subjectDB = new SubjectDB(activity);
         subjectCard = subjectDB.getSubjectById(id);
-        nameSubject.setText(subjectCard.getName());
+        collapsingToolbar.setTitle(subjectCard.getName());
         spinner.setSelection(getPositionInsSpinner(subjectCard.getStatus()));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -81,15 +106,7 @@ public class SubjectActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.notesList);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(llm);
-        adapter = new MethodicAdapter(getAllMethodics());
-        recyclerView.setAdapter(adapter);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle("Subject");
     }
 
     public int getPositionInsSpinner(String s) {

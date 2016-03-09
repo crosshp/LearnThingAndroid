@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.NotesCardAdapter;
@@ -26,6 +27,7 @@ public class NotesActivity extends AppCompatActivity {
     RecyclerView recyclerView = null;
     FloatingActionButton button = null;
     Integer idSubject;
+    TextView emptyNotes = null;
 
 
     @Override
@@ -33,7 +35,11 @@ public class NotesActivity extends AppCompatActivity {
         super.onResume();
         cardAdapter.setData(getAllNotes());
         cardAdapter.notifyDataSetChanged();
+        if (!cardAdapter.getData().isEmpty()) {
+            emptyNotes.setVisibility(View.INVISIBLE);
+        }
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -42,6 +48,7 @@ public class NotesActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,7 @@ public class NotesActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Notes");
         idSubject = getIntent().getIntExtra("id", -1);
         recyclerView = (RecyclerView) findViewById(R.id.notesList);
+        emptyNotes = (TextView) findViewById(R.id.emptyNotes);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);

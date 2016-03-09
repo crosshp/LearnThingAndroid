@@ -17,7 +17,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_marginTop="40dp"
-            android:ems="10"
+            android:maxLength="15"
             android:fontFamily="sans-serif-light"
             android:hint="@string/write_name_subject"
             android:inputType="textPersonName" />

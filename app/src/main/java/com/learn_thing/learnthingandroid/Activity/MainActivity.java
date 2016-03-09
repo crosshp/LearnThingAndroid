@@ -14,13 +14,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.RecyclerClickListener;
 import com.learn_thing.learnthingandroid.Activity.Adapters.SubjectCardAdapter;
-import com.learn_thing.learnthingandroid.DataBase.NoteDB;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
-import com.learn_thing.learnthingandroid.Entity.Note;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
 import com.mikepenz.materialdrawer.Drawer;
@@ -31,16 +30,14 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 
-import java.util.List;
-
 public class MainActivity extends AppCompatActivity {
     MainActivity activity = this;
-    SubjectCardAdapter cardAdapter = null;
+    static SubjectCardAdapter cardAdapter = null;
     RecyclerView recyclerView = null;
     String name = null;
     Drawer drawer = null;
     Toolbar toolbar = null;
-
+    static TextView emptySubject = null;
 
     @Override
     public void onBackPressed() {
@@ -55,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         initializeMenu();
         final Intent intent = getIntent();
+        emptySubject = (TextView) findViewById(R.id.emptySubjects);
         name = intent.getStringExtra(HelloActivity.NAME);
         Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
@@ -64,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         SubjectDB subjectDB = new SubjectDB(activity);
         cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects());
         recyclerView.setAdapter(cardAdapter);
-
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -80,8 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
-               // Intent intentForNote = new Intent(activity, SubjectActivity.class);
-                Intent intentForNote = new Intent(activity, AnimateToolbar.class);
+                Intent intentForNote = new Intent(activity, SubjectActivity.class);
                 SubjectCard subjectCard = cardAdapter.getData().get(position);
                 intentForNote.putExtra("id", subjectCard.getId());
                 activity.startActivity(intentForNote);
@@ -92,11 +88,8 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(activity, NewNoteActivity.class);
-                Toast.makeText(activity,"Ya zdec",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(activity, CreateSubjectActivity.class);
                 view.getContext().startActivity(intent);
-               /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();*/
             }
         });
     }
@@ -162,11 +155,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         SubjectDB subjectDB = new SubjectDB(activity);
-        for(SubjectCard subject:subjectDB.getAllRealmResultSubjects()){
-            System.out.println(subject.getId());
-        }
         cardAdapter.setData(subjectDB.getAllRealmResultSubjects());
         cardAdapter.notifyDataSetChanged();
+        checkEmpty();
+    }
+
+    public static void checkEmpty() {
+        if (!cardAdapter.getData().isEmpty()) {
+            emptySubject.setVisibility(View.INVISIBLE);
+        } else {
+            emptySubject.setVisibility(View.VISIBLE);
+        }
     }
 
 }

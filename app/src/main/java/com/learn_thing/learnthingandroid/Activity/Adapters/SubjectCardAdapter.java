@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.learn_thing.learnthingandroid.Activity.MainActivity;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
@@ -89,6 +90,8 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
                         subjectDB.deleteById(data.get(position).getId());
                         adapter.setData(subjectDB.getAllRealmResultSubjects());
                         adapter.notifyDataSetChanged();
+                        MainActivity.checkEmpty();
+
                     }
                 });
                 ad.setNegativeButton("Ні", new DialogInterface.OnClickListener() {

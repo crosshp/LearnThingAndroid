@@ -25,6 +25,8 @@
     <string name="write_motivation">Напишіть свою мотивацію</string>
     <string name="choose_picture">Зображення:</string>
     <string name="dali">Готово</string>
+    <string name="empty_notes">Тут розміщюються нотатки,\nНатисніть + щоб додати нову</string>
+    <string name="empty_subjects">Тут розміщюються предмети,\nНатисніть + щоб додати новий</string>
 
 
     <array name="status_array">
