@@ -9,7 +9,7 @@
     <string name="process">В процесі</string>
     <string name="remind">Нагадувати про предмет</string>
     <string name="img_attr">imageAttr</string>
-    <string name="methodic">Методика:</string>
+    <string name="motivation">Мотивація:</string>
     <string name="hello">Вітаємо!</string>
     <string name="write_the_name">Введіть своє ім’я</string>
     <string name="write_the_email">Введіть свою електронну пошту</string>
@@ -27,6 +27,12 @@
     <string name="dali">Готово</string>
     <string name="empty_notes">Тут розміщюються нотатки,\nНатисніть + щоб додати нову</string>
     <string name="empty_subjects">Тут розміщюються предмети,\nНатисніть + щоб додати новий</string>
+    <string name="rate">Рейтинг</string>
+    <string name="counr_subject">Предмети</string>
+    <string name="zero">0</string>
+    <string name="zero5">0/5</string>
+    <string name="check">Пройти перевірку</string>
+    <string name="citata">Если тебе плюют в спину - ты идешь вперёд</string>
 
 
     <array name="status_array">

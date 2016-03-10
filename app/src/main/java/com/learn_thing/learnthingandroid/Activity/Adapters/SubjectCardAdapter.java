@@ -85,7 +85,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
                 }*/
             }
         });
-
+        personViewHolder.motivation.setText(objectItem.getMotivation());
         personViewHolder.imageView.setImageResource(MainActivity.img[objectItem.getImg()]);
         personViewHolder.closeButton.setOnClickListener(new View.OnClickListener() {
 
@@ -147,6 +147,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         Switch checkBox = null;
         ImageView imageView = null;
         ImageButton closeButton = null;
+        TextView motivation = null;
 
         PersonViewHolder(final View itemView) {
             super(itemView);
@@ -155,6 +156,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
             checkBox = (Switch) itemView.findViewById(R.id.switchBox);
             imageView = (ImageView) itemView.findViewById(R.id.imageTechnic);
             closeButton = (ImageButton) itemView.findViewById(R.id.deleteCardButton);
+            motivation = (TextView) itemView.findViewById(R.id.motivationValue);
         }
     }
 

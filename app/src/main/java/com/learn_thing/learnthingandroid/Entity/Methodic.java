@@ -5,9 +5,19 @@ package com.learn_thing.learnthingandroid.Entity;
  */
 public class Methodic {
     private String name;
-    private String img;
+    private int img;
     private String description;
     private int id;
+
+    public boolean isInteractive() {
+        return isInteractive;
+    }
+
+    public void setIsInteractive(boolean isInteractive) {
+        this.isInteractive = isInteractive;
+    }
+
+    private boolean isInteractive;
 
     public String getName() {
         return name;
@@ -15,14 +25,6 @@ public class Methodic {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
     }
 
     public String getDescription() {
@@ -39,5 +41,13 @@ public class Methodic {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 }

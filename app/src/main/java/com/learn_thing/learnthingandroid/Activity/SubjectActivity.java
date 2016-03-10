@@ -18,7 +18,9 @@ import android.widget.Spinner;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicAdapter;
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicListAdapter;
+import com.learn_thing.learnthingandroid.Activity.Adapters.RecyclerClickListener;
 import com.learn_thing.learnthingandroid.Activity.Adapters.SubjectCardAdapter;
+import com.learn_thing.learnthingandroid.DataBase.MethodicDB;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.Methodic;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
@@ -64,6 +66,7 @@ public class SubjectActivity extends Activity {
 
         listView = (RecyclerView) findViewById(R.id.scrollableview);
 
+
         List<String> listData = new ArrayList<String>();
         int ct = 0;
         for (int i = 0; i < VersionModel.data.length * 2; i++) {
@@ -80,6 +83,19 @@ public class SubjectActivity extends Activity {
             listView.setLayoutManager(llm);
             adapter = new MethodicAdapter(getAllMethodics());
             listView.setAdapter(adapter);
+            listView.addOnItemTouchListener(new RecyclerClickListener(this) {
+                @Override
+                public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+                }
+
+                @Override
+                public void onItemClick(RecyclerView recyclerView, View itemView, int position) {
+                    Intent intent = new Intent(activity, MethodicActivity.class);
+                    intent.putExtra("id", adapter.getData().get(position).getId());
+                    activity.startActivity(intent);
+                }
+            });
         }
 
         image = (ImageView) findViewById(R.id.header);
@@ -128,15 +144,8 @@ public class SubjectActivity extends Activity {
     }
 
     private List<Methodic> getAllMethodics() {
-        List<Methodic> list = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            Methodic methodic = new Methodic();
-            methodic.setName("Ololo " + i);
-            methodic.setDescription("Description gjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" + i);
-            methodic.setImg("menu.jpg");
-            list.add(methodic);
-        }
-        return list;
+        MethodicDB methodicDB = new MethodicDB(activity);
+        return methodicDB.getAllMethodics();
     }
 
     @Override

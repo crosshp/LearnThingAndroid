@@ -5,6 +5,7 @@
     <color name="colorAccent">#FFC107</color>
     <color name="status_bar">#00695C</color>
     <color name="action_bar">#009688</color>
+    <color name="action_bar_prozr">#80009688</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
     <color name="card_color">#FFFFFF</color>

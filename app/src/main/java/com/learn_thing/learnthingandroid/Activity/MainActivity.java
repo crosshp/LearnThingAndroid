@@ -1,4 +1,5 @@
 package com.learn_thing.learnthingandroid.Activity;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     public static Integer[] img = {R.drawable.imagecard1, R.drawable.imagecard2, R.drawable.imagecard3,
             R.drawable.imagecard4, R.drawable.imagecard5, R.drawable.imagecard6,
             R.drawable.imagecard7, R.drawable.imagecard8};
+
     @Override
     public void onBackPressed() {
     }
@@ -121,11 +123,13 @@ public class MainActivity extends AppCompatActivity {
                                 break;
                             }
                             case 2: {
-
+                                Intent intent = new Intent(activity, MethodicActivity.class);
+                                activity.startActivity(intent);
                                 break;
                             }
                             case 3: {
-
+                                Intent intent = new Intent(activity, PersonalActivity.class);
+                                activity.startActivity(intent);
                                 break;
                             }
                             case 4: {

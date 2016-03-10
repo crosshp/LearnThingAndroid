@@ -89,12 +89,13 @@
             android:layout_below="@+id/statusTextView"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="5dp"
-            android:text="@string/methodic"
+            android:text="@string/motivation"
+
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/primary_text" />
 
         <TextView
-            android:id="@+id/methodicValue"
+            android:id="@+id/motivationValue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/methodicTextView"

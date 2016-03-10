@@ -73,7 +73,7 @@ public class MethodicListAdapter extends ArrayAdapter<Methodic> {
         // устанавливаем значения компонентам одного эелемента списка
         name.setText(objectItem.getName());
         text.setText(objectItem.getDescription());
-        try (InputStream is = view.getContext().getResources().getAssets().open(objectItem.getImg())) {
+        try (InputStream is = view.getContext().getResources().getAssets().open(String.valueOf(objectItem.getImg()))) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
             bitmapFactory = Bitmap.createScaledBitmap(bitmapFactory, 90, 90, false);
             img.setImageBitmap(getRoundedCornerBitmap(bitmapFactory, 90));
