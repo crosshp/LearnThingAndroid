@@ -1,31 +1,26 @@
 package com.learn_thing.learnthingandroid.Activity.Adapters;
-
+import com.learn_thing.learnthingandroid.Activity.MainActivity;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.learn_thing.learnthingandroid.Activity.MainActivity;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by Andrew on 23.07.2015.
@@ -37,6 +32,11 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         this.data = data;
     }
 
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
+
+    Activity activity = null;
     List<SubjectCard> data;
     SubjectCardAdapter adapter = this;
 
@@ -70,13 +70,23 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
         personViewHolder.name.setText(objectItem.getName());
         personViewHolder.statusValue.setText(objectItem.getStatus());
         personViewHolder.checkBox.setChecked(false);
-        int randomPaint = (int) (Math.random() * 5) + 1;
-        try (InputStream is = view.getContext().getResources().getAssets().open("imageCard"+randomPaint+".jpg")) {
-            Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
-            personViewHolder.imageView.setImageBitmap(bitmapFactory);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        personViewHolder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+             /*   if (isChecked) {
+                    Intent myIntent = new Intent(activity, MainActivity.class);
+                    @SuppressLint("ServiceCast") AlarmManager alarmManager = (AlarmManager) activity.getSystemService(Context.ALARM_SERVICE);
+                    PendingIntent pendingIntent = PendingIntent.getService(activity, 0, myIntent, 0);
+                    Calendar calendar = Calendar.getInstance();
+                    calendar.set(Calendar.HOUR_OF_DAY, 0);
+                    calendar.set(Calendar.MINUTE, 56);
+                    calendar.set(Calendar.SECOND, 00);
+                    alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), 24 * 60 * 60 * 1000, pendingIntent);  //set repeating every 24 hours
+                }*/
+            }
+        });
+
+        personViewHolder.imageView.setImageResource(MainActivity.img[objectItem.getImg()]);
         personViewHolder.closeButton.setOnClickListener(new View.OnClickListener() {
 
             public void showAlert() {
@@ -134,7 +144,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
     public static class PersonViewHolder extends RecyclerView.ViewHolder {
         TextView name;
         TextView statusValue;
-        CheckBox checkBox = null;
+        Switch checkBox = null;
         ImageView imageView = null;
         ImageButton closeButton = null;
 
@@ -142,7 +152,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.headerCard);
             statusValue = (TextView) itemView.findViewById(R.id.statusValue);
-            checkBox = (CheckBox) itemView.findViewById(R.id.checkBox);
+            checkBox = (Switch) itemView.findViewById(R.id.switchBox);
             imageView = (ImageView) itemView.findViewById(R.id.imageTechnic);
             closeButton = (ImageButton) itemView.findViewById(R.id.deleteCardButton);
         }

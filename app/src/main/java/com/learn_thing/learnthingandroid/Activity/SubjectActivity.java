@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicAdapter;
 import com.learn_thing.learnthingandroid.Activity.Adapters.MethodicListAdapter;
+import com.learn_thing.learnthingandroid.Activity.Adapters.SubjectCardAdapter;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.Methodic;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
@@ -36,11 +37,11 @@ public class SubjectActivity extends Activity {
     SubjectCard subjectCard = null;
     ImageView image = null;
     Spinner spinner = null;
-    ListView listView = null;
+    RecyclerView listView = null;
     String currentStatus = "";
     int id = 0;
     CollapsingToolbarLayout collapsingToolbar;
-    MethodicListAdapter adapter;
+    MethodicAdapter adapter;
 
     @Override
     protected void onPause() {
@@ -61,7 +62,7 @@ public class SubjectActivity extends Activity {
         collapsingToolbar.setCollapsedTitleTextColor(Color.WHITE);
         collapsingToolbar.setExpandedTitleColor(Color.WHITE);
 
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (RecyclerView) findViewById(R.id.scrollableview);
 
         List<String> listData = new ArrayList<String>();
         int ct = 0;
@@ -74,11 +75,15 @@ public class SubjectActivity extends Activity {
         }
 
         if (adapter == null) {
-            adapter = new MethodicListAdapter(activity,getAllMethodics());
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            llm.setOrientation(LinearLayoutManager.VERTICAL);
+            listView.setLayoutManager(llm);
+            adapter = new MethodicAdapter(getAllMethodics());
             listView.setAdapter(adapter);
         }
 
         image = (ImageView) findViewById(R.id.header);
+
         spinner = (Spinner) findViewById(R.id.statusSpinner);
         id = getIntent().getIntExtra("id", 0);
         writeNoteButton = (FloatingActionButton) findViewById(R.id.writeNoteButton);
@@ -92,6 +97,7 @@ public class SubjectActivity extends Activity {
         });
         SubjectDB subjectDB = new SubjectDB(activity);
         subjectCard = subjectDB.getSubjectById(id);
+        image.setImageResource(MainActivity.img[subjectCard.getImg()]);
         collapsingToolbar.setTitle(subjectCard.getName());
         spinner.setSelection(getPositionInsSpinner(subjectCard.getStatus()));
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -126,7 +132,7 @@ public class SubjectActivity extends Activity {
         for (int i = 0; i < 10; i++) {
             Methodic methodic = new Methodic();
             methodic.setName("Ololo " + i);
-            methodic.setDescription("Description " + i);
+            methodic.setDescription("Description gjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd" + i);
             methodic.setImg("menu.jpg");
             list.add(methodic);
         }

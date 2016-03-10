@@ -1,5 +1,4 @@
 package com.learn_thing.learnthingandroid.Activity;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
@@ -38,7 +37,9 @@ public class MainActivity extends AppCompatActivity {
     Drawer drawer = null;
     Toolbar toolbar = null;
     static TextView emptySubject = null;
-
+    public static Integer[] img = {R.drawable.imagecard1, R.drawable.imagecard2, R.drawable.imagecard3,
+            R.drawable.imagecard4, R.drawable.imagecard5, R.drawable.imagecard6,
+            R.drawable.imagecard7, R.drawable.imagecard8};
     @Override
     public void onBackPressed() {
     }
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
         SubjectDB subjectDB = new SubjectDB(activity);
         cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects());
+        cardAdapter.setActivity(activity);
         recyclerView.setAdapter(cardAdapter);
         Window window = activity.getWindow();
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -96,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void initializeMenu() {
         ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem().withEmail("your@mail.com").withName("Andrew").withIcon(getResources().getDrawable(R.drawable.ic_account));
-        final AccountHeader accountHeader = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.menu1).addProfiles(profileDrawerItem).build();
+        final AccountHeader accountHeader = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.imagecard3).addProfiles(profileDrawerItem).build();
 
-        final SecondaryDrawerItem menu_item1 = new SecondaryDrawerItem().withName(R.string.menu_item1).withIdentifier(1);//.withIcon(R.drawable.ic_menu_favor);
+        final SecondaryDrawerItem menu_item1 = new SecondaryDrawerItem().withName(R.string.menu_item1).withIdentifier(1).withIcon(R.drawable.ic_view_list);
         final SecondaryDrawerItem menu_item2 = new SecondaryDrawerItem().withName(R.string.menu_item2).withIdentifier(2);//.withIcon(R.drawable.ic_menu_aid).withEnabled(false);
         final SecondaryDrawerItem menu_item3 = new SecondaryDrawerItem().withName(R.string.menu_item3).withIdentifier(3);//.withIcon(R.drawable.ic_menu_about).withEnabled(false);
         final SecondaryDrawerItem menu_item4 = new SecondaryDrawerItem().withName(R.string.menu_item4).withIdentifier(4);//.withIcon(R.drawable.ic_menu_help).withEnabled(false);
@@ -114,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                     public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
                         switch (iDrawerItem.getIdentifier()) {
                             case 1: {
-                                Intent intent = new Intent(activity, NotesActivity.class);
+                                Intent intent = new Intent(activity, AllMethodicActivity.class);
                                 activity.startActivity(intent);
                                 break;
                             }

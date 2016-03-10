@@ -69,9 +69,8 @@ public class MethodicAdapter extends RecyclerView.Adapter<MethodicAdapter.Person
         personViewHolder.description.setText(objectItem.getDescription());
         try (InputStream is = view.getContext().getResources().getAssets().open(objectItem.getImg())) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
-           /* bitmapFactory.setHeight(90);
-            bitmapFactory.setWidth(90);*/
-            personViewHolder.img.setImageBitmap(getRoundedCornerBitmap(bitmapFactory,90));
+            bitmapFactory = Bitmap.createScaledBitmap(bitmapFactory, 90, 90, false);
+            personViewHolder.img.setImageBitmap(getRoundedCornerBitmap(bitmapFactory, 90));
         } catch (IOException e) {
             e.printStackTrace();
         }

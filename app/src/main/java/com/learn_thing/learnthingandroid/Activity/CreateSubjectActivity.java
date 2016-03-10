@@ -4,11 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.learn_thing.learnthingandroid.Activity.Adapters.SpinnerAdapter;
 import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.SubjectCard;
 import com.learn_thing.learnthingandroid.R;
@@ -22,6 +24,8 @@ public class CreateSubjectActivity extends AppCompatActivity {
     Spinner spinner = null;
     Button button = null;
     CreateSubjectActivity activity = this;
+    int idImage = 0;
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
@@ -40,6 +44,20 @@ public class CreateSubjectActivity extends AppCompatActivity {
         nameSubject = (EditText) findViewById(R.id.newSubjectName);
         motivationEdit = (EditText) findViewById(R.id.motivationEdit);
         spinner = (Spinner) findViewById(R.id.spinner);
+        SpinnerAdapter spinnerAdapter = new SpinnerAdapter(activity);
+        spinner.setAdapter(spinnerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                idImage = position;
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         button = (Button) findViewById(R.id.startButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,6 +72,7 @@ public class CreateSubjectActivity extends AppCompatActivity {
                     subjectCard.setStatus(getResources().getStringArray(R.array.status_array)[0]);
                     subjectCard.setName(name);
                     subjectCard.setMotivation(motivation);
+                    subjectCard.setImg(idImage);
                     SubjectDB subjectDB = new SubjectDB(activity);
                     subjectDB.saveSubject(subjectCard);
                     finish();

@@ -11,6 +11,7 @@ public class SubjectCard extends RealmObject {
     private String status;
     private boolean isReminder;
     private String motivation;
+    private int img;
 
     @PrimaryKey
     private int id;
@@ -53,6 +54,14 @@ public class SubjectCard extends RealmObject {
 
     public void setMotivation(String motivation) {
         this.motivation = motivation;
+    }
+
+    public int getImg() {
+        return img;
+    }
+
+    public void setImg(int img) {
+        this.img = img;
     }
 
 }

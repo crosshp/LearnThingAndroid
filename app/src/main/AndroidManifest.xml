@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Activity.TestActivity" />
+        <activity android:name=".Activity.AllMethodicActivity" />
         <activity android:name=".Activity.NotesActivity" />
         <activity android:name=".Activity.NewNoteActivity" />
         <activity android:name=".Activity.SubjectActivity" />

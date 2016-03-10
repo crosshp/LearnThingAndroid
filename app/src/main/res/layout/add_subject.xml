@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <EditText
@@ -14,13 +13,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="25dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:layout_marginTop="40dp"
-            android:maxLength="15"
+            android:focusable="true"
             android:fontFamily="sans-serif-light"
             android:hint="@string/write_name_subject"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:maxLength="15" />
 
         <EditText
             android:id="@+id/motivationEdit"
@@ -44,9 +44,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_below="@+id/chooseImgTextView"
+            android:layout_below="@+id/spinner"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:text="@string/dali"
             android:textColor="?attr/colorPrimary" />
 
@@ -54,20 +54,20 @@
             android:id="@+id/chooseImgTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/motivationEdit"
-            android:layout_below="@+id/motivationEdit"
-            android:layout_marginLeft="3dp"
+            android:layout_marginTop="35dp"
             android:fontFamily="sans-serif-light"
             android:text="@string/choose_picture"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginTop="20dp" />
+            android:layout_below="@+id/motivationEdit"
+            android:layout_centerHorizontal="true" />
 
         <Spinner
+            android:id="@+id/spinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"
-            android:layout_toEndOf="@+id/chooseImgTextView"
-            android:layout_alignTop="@+id/chooseImgTextView"
-            android:layout_alignBottom="@+id/chooseImgTextView" />
+            android:layout_alignEnd="@+id/motivationEdit"
+            android:layout_alignStart="@+id/motivationEdit"
+            android:layout_below="@+id/chooseImgTextView"
+            android:drawSelectorOnTop="true" />
     </RelativeLayout>
 </ScrollView>

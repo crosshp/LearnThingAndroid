@@ -14,7 +14,7 @@
     <string name="write_the_name">Введіть своє ім’я</string>
     <string name="write_the_email">Введіть свою електронну пошту</string>
     <string name="start">Почати</string>
-    <string name="menu_item1">item1</string>
+    <string name="menu_item1">Всі методики</string>
     <string name="menu_item2">item2</string>
     <string name="menu_item3">item3</string>
     <string name="menu_item4">item4</string>
@@ -40,4 +40,52 @@
             Активно вивчаю
         </item>
     </array>
+
+    <array name="img_name_spinner">
+        <item>
+            Алохус
+        </item>
+        <item>
+            Франчезис
+        </item>
+        <item>
+            Санвояж
+        </item>
+        <item>
+            Фуркаах
+        </item>
+        <item>
+            Кинесит
+        </item>
+        <item>
+            Рубістон
+        </item>
+        <item>
+            Лоліпоп
+        </item>
+    </array>
+
+    <string-array name="img_spinner">
+        <item>
+            imageCard1
+        </item>
+        <item>
+            imageCard2
+        </item>
+        <item>
+            imageCard3
+        </item>
+        <item>
+            imageCard4
+        </item>
+        <item>
+            imageCard5
+        </item>
+        <item>
+            imageCard6
+        </item>
+        <item>
+            imageCard7
+        </item>
+    </string-array>
 </resources>
