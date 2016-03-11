@@ -10,8 +10,8 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.learn_thing.learnthingandroid.R;
 
@@ -20,6 +20,7 @@ import com.learn_thing.learnthingandroid.R;
  */
 public class PersonalActivity extends Activity {
     ImageView avatar = null;
+    TextView nameText = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,9 @@ public class PersonalActivity extends Activity {
         avatar = (ImageView) findViewById(R.id.profileImage);
         Bitmap bitmapFactory = BitmapFactory.decodeResource(getResources(), R.drawable.face);
         bitmapFactory = Bitmap.createScaledBitmap(bitmapFactory, 90, 90, false);
-        avatar.setImageBitmap(getRoundedCornerBitmap(bitmapFactory,90));
+        avatar.setImageBitmap(getRoundedCornerBitmap(bitmapFactory, 90));
+        nameText = (TextView) findViewById(R.id.nameTextView);
+        nameText.setText(getIntent().getStringExtra("name"));
     }
 
 

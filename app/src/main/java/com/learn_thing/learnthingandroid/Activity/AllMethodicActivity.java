@@ -1,8 +1,11 @@
 package com.learn_thing.learnthingandroid.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -44,8 +47,16 @@ public class AllMethodicActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Methodics");
         listView = (ListView) findViewById(R.id.methodicListView);
-        MethodicListAdapter listAdapter = new MethodicListAdapter(activity, getAllMethodics());
+        final MethodicListAdapter listAdapter = new MethodicListAdapter(activity, getAllMethodics());
         listView.setAdapter(listAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(activity, MethodicActivity.class);
+                intent.putExtra("id", listAdapter.getItem(position).getId());
+                activity.startActivity(intent);
+            }
+        });
     }
 
     private List<Methodic> getAllMethodics() {

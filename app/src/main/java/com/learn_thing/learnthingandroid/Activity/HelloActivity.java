@@ -25,7 +25,7 @@ public class HelloActivity extends AppCompatActivity {
         setContentView(R.layout.hello_layout);
         String nameBySP = getName();
         if (nameBySP != null) {
-            Intent intent = new Intent(activity, MainActivity.class);
+            Intent intent = new Intent(activity, PersonalActivity.class);
             intent.putExtra(NAME, nameBySP);
             activity.startActivity(intent);
         } else {

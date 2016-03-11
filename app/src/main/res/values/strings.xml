@@ -34,6 +34,12 @@
     <string name="check">Пройти перевірку</string>
     <string name="citata">Если тебе плюют в спину - ты идешь вперёд</string>
 
+    <string name="methodics">Методики</string>
+    <string name="subjects">Предмети</string>
+    <string name="notes">Нотатки</string>
+    <string name="help">Допомога</string>
+    <string name="about">Про додаток</string>
+    <string name="newpunkt">Новий</string>
 
     <array name="status_array">
         <item>

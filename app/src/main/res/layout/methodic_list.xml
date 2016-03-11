@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    android:paddingTop="7dp"
-    android:paddingBottom="7dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="7dp"
+    android:paddingTop="7dp">
 
-        <TextView
-            android:id="@+id/methodicName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:autoText="false"
-            android:layout_alignTop="@+id/methodicImg"
-            android:layout_toEndOf="@+id/methodicImg"
-            android:layout_marginLeft="7dp" />
+    <TextView
+        android:id="@+id/methodicName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/methodicImg"
+        android:layout_marginLeft="7dp"
+        android:layout_toEndOf="@+id/methodicImg"
+        android:autoText="false"
+        android:fontFamily="sans-serif-light"
+        android:text="Large Text"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <TextView
-            android:id="@+id/methodicDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/methodicName"
-            android:layout_toEndOf="@+id/methodicImg"
-            android:fontFamily="sans-serif-light"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginLeft="7dp" />
+    <TextView
+        android:id="@+id/methodicDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/methodicName"
+        android:layout_marginLeft="7dp"
+        android:layout_toEndOf="@+id/methodicImg"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-light"
+        android:maxLines="3"
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <ImageView
-            android:id="@+id/methodicImg"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/menu1"
-            android:layout_marginLeft="7dp" />
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/methodicImg"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="7dp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true"
+        android:src="@drawable/menu1" />
+</RelativeLayout>
