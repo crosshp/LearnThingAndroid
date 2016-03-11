@@ -75,4 +75,9 @@ public class SubjectDB {
         realm.commitTransaction();
     }
 
+    public long getSubjectsSize(){
+        RealmQuery<SubjectCard> query = realm.where(SubjectCard.class);
+        return  query.count();
+    }
+
 }

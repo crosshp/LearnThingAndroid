@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.learn_thing.learnthingandroid.Entity.Note;
 
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmQuery;
@@ -30,9 +32,15 @@ public class NoteDB {
     }
 
     public RealmResults<Note> getAllNotes(int id) {
-        RealmQuery<Note> query = realm.where(Note.class).equalTo("idSubject",id);
+        RealmQuery<Note> query = realm.where(Note.class).equalTo("idSubject", id);
         RealmResults<Note> result = query.findAll();
         return result;
+    }
+
+    public List<Note> getNotes() {
+        RealmQuery<Note> query = realm.where(Note.class);
+        RealmResults realmResults = query.findAll();
+        return realmResults.subList(0, realmResults.size());
     }
 }
 

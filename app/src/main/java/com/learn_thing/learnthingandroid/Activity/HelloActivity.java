@@ -36,7 +36,7 @@ public class HelloActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     String name = editText.getText().toString();
                     if (name.length() != 0) {
-                        Intent intent = new Intent(activity, MainActivity.class);
+                        Intent intent = new Intent(activity, PersonalActivity.class);
                         intent.putExtra(NAME, name);
                         SharedPreferences.Editor editor = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE).edit();
                         editor.putString("name", name);

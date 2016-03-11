@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -43,7 +44,12 @@ public class MainActivity extends AppCompatActivity {
             R.drawable.imagecard7, R.drawable.imagecard8};
 
     @Override
-    public void onBackPressed() {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -53,11 +59,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("Subjects");
         setSupportActionBar(toolbar);
-        initializeMenu();
-        final Intent intent = getIntent();
         emptySubject = (TextView) findViewById(R.id.emptySubjects);
-        name = intent.getStringExtra(HelloActivity.NAME);
-        Toast.makeText(activity, name, Toast.LENGTH_LONG).show();
         recyclerView = (RecyclerView) findViewById(R.id.cardList);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -96,66 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 view.getContext().startActivity(intent);
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public void initializeMenu() {
-        ProfileDrawerItem profileDrawerItem = new ProfileDrawerItem().withEmail("your@mail.com").withName("Andrew").withIcon(getResources().getDrawable(R.drawable.ic_account));
-        final AccountHeader accountHeader = new AccountHeaderBuilder().withActivity(this).withHeaderBackground(R.drawable.imagecard3).addProfiles(profileDrawerItem).build();
-
-        final SecondaryDrawerItem menu_item1 = new SecondaryDrawerItem().withName(R.string.menu_item1).withIdentifier(1).withIcon(R.drawable.ic_view_list);
-        final SecondaryDrawerItem menu_item2 = new SecondaryDrawerItem().withName(R.string.menu_item2).withIdentifier(2);//.withIcon(R.drawable.ic_menu_aid).withEnabled(false);
-        final SecondaryDrawerItem menu_item3 = new SecondaryDrawerItem().withName(R.string.menu_item3).withIdentifier(3);//.withIcon(R.drawable.ic_menu_about).withEnabled(false);
-        final SecondaryDrawerItem menu_item4 = new SecondaryDrawerItem().withName(R.string.menu_item4).withIdentifier(4);//.withIcon(R.drawable.ic_menu_help).withEnabled(false);
-
-        drawer = new DrawerBuilder().
-                withActivity(this).
-                withDisplayBelowToolbar(true).withToolbar(toolbar).
-                withActionBarDrawerToggleAnimated(true).
-                addDrawerItems(menu_item1, menu_item2, menu_item3, menu_item4).
-                withAccountHeader(accountHeader).
-                withOnDrawerItemClickListener(new Drawer.OnDrawerItemClickListener() {
-                    @Override
-                    public boolean onItemClick(AdapterView<?> adapterView, View view, int i, long l, IDrawerItem iDrawerItem) {
-                        switch (iDrawerItem.getIdentifier()) {
-                            case 1: {
-                                Intent intent = new Intent(activity, AllMethodicActivity.class);
-                                activity.startActivity(intent);
-                                break;
-                            }
-                            case 2: {
-                                Intent intent = new Intent(activity, MethodicActivity.class);
-                                activity.startActivity(intent);
-                                break;
-                            }
-                            case 3: {
-                                Intent intent = new Intent(activity, PersonalActivity.class);
-                                activity.startActivity(intent);
-                                break;
-                            }
-                            case 4: {
-
-                                break;
-                            }
-                        }
-                        return true;
-                    }
-                }).withOnDrawerListener(new Drawer.OnDrawerListener() {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-            }
-
-            @Override
-            public void onDrawerClosed(View view) {
-
-            }
-
-            @Override
-            public void onDrawerSlide(View view, float v) {
-                InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Activity.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(MainActivity.this.getCurrentFocus().getWindowToken(), 0);
-            }
-        }).build();
-    }
 
     @Override
     protected void onResume() {
