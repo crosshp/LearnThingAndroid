@@ -63,6 +63,7 @@ public class NotesActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(llm);
         cardAdapter = new NotesCardAdapter(getAllNotes());
         recyclerView.setAdapter(cardAdapter);
+
         button = (FloatingActionButton) findViewById(R.id.addNoteButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

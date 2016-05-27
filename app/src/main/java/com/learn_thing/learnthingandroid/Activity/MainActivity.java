@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
         SubjectDB subjectDB = new SubjectDB(activity);
-        cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects());
+        cardAdapter = new SubjectCardAdapter(subjectDB.getAllRealmResultSubjects(),getApplicationContext());
         cardAdapter.setActivity(activity);
         recyclerView.setAdapter(cardAdapter);
         Window window = activity.getWindow();
