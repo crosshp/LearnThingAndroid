@@ -111,7 +111,7 @@ public class SubjectCardAdapter extends RecyclerView.Adapter<SubjectCardAdapter.
                             intent.putExtra("text", "Напоминание. У вас есть незаконченые предметы!");
                             PendingIntent pIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
                             AlarmManager am = (AlarmManager) context.getSystemService(context.ALARM_SERVICE);
-                            am.set(AlarmManager.RTC, System.currentTimeMillis() + 5000, pIntent);
+                            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 60000*24, pIntent);
                         } else {
                             SubjectDB subjectDB = new SubjectDB(context);
                             subjectDB.getRealm().beginTransaction();

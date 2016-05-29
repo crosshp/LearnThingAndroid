@@ -47,12 +47,14 @@ public class NewNoteActivity extends AppCompatActivity {
                     note.setNoteText(text);
                     note.setNoteName(name);
                     note.setIdSubject(idSubject);
+                    note.setId(noteDB.getNotes().size() + 1);
                     noteDB.saveNote(note);
                     finish();
                 }
             }
         });
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {

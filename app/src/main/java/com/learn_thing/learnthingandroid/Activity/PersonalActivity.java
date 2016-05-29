@@ -2,6 +2,7 @@ package com.learn_thing.learnthingandroid.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -34,20 +35,27 @@ public class PersonalActivity extends Activity {
     FloatingActionButton helpButton = null;
     FloatingActionButton aboutButton = null;
     FloatingActionButton newButton = null;
+    TextView valueTest = null;
 
     @Override
     protected void onResume() {
         super.onResume();
         SubjectDB subjectDB = new SubjectDB(activity);
         countOfSubject.setText(String.valueOf(subjectDB.getSubjectsSize()));
+        SharedPreferences sharedPreferences = getSharedPreferences("result", MODE_PRIVATE);
+        int number = sharedPreferences.getInt("numberOfTry", 1);
+        float result = sharedPreferences.getFloat("result", (float) 0);
+        float valueResult = result / number;
+        valueTest.setText(String.valueOf(valueResult) + "/5");
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_layout);
+        valueTest = (TextView) findViewById(R.id.textView2);
         avatar = (ImageView) findViewById(R.id.profileImage);
-        Bitmap bitmapFactory = BitmapFactory.decodeResource(getResources(), R.drawable.face);
+        Bitmap bitmapFactory = BitmapFactory.decodeResource(getResources(), R.drawable.avatar_android);
         bitmapFactory = Bitmap.createScaledBitmap(bitmapFactory, 90, 90, false);
         avatar.setImageBitmap(getRoundedCornerBitmap(bitmapFactory, 90));
         nameText = (TextView) findViewById(R.id.nameTextView);
@@ -98,6 +106,13 @@ public class PersonalActivity extends Activity {
             }
         });
         newButton = (FloatingActionButton) findViewById(R.id.fabNew);
+        newButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getSharedPreferences("name_preferences", MODE_PRIVATE).edit().clear().commit();
+                finish();
+            }
+        });
     }
 
 

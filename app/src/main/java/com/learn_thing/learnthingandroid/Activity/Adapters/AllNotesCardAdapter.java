@@ -5,17 +5,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Build;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.learn_thing.learnthingandroid.Activity.MainActivity;
-import com.learn_thing.learnthingandroid.Activity.NotesActivity;
+import com.learn_thing.learnthingandroid.Activity.AllNotesActivity;
 import com.learn_thing.learnthingandroid.DataBase.NoteDB;
-import com.learn_thing.learnthingandroid.DataBase.SubjectDB;
 import com.learn_thing.learnthingandroid.Entity.Note;
 import com.learn_thing.learnthingandroid.R;
 
@@ -25,16 +22,15 @@ import java.util.List;
 /**
  * Created by Andrew on 27.02.2016.
  */
-public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.PersonViewHolder> {
+public class AllNotesCardAdapter extends RecyclerView.Adapter<AllNotesCardAdapter.PersonViewHolder> {
 
     public void setData(List<Note> data) {
         this.data = data;
     }
-
+    AllNotesActivity activity = null;
     List<Note> data;
-    NotesCardAdapter adapter = this;
+    AllNotesCardAdapter adapter = this;
     NoteDB noteDB = null;
-    NotesActivity notesActivity = null;
 
     public List<Note> getData() {
         return data;
@@ -47,8 +43,8 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Pers
         }
     }
 
-    public NotesCardAdapter(List<Note> data, NotesActivity notesActivity) {
-        this.notesActivity = notesActivity;
+    public AllNotesCardAdapter(List<Note> data, AllNotesActivity activity) {
+        this.activity = activity;
         this.data = data;
     }
 
@@ -70,7 +66,7 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Pers
             @Override
             public void onClick(View v) {
 
-                final AlertDialog.Builder ad = new AlertDialog.Builder(personViewHolder.itemView.getContext());
+                AlertDialog.Builder ad = new AlertDialog.Builder(personViewHolder.itemView.getContext());
                 ad.setTitle("Увага");  // заголовок
                 ad.setMessage("Ви впевнені, що хочете видалити"); // сообщение
                 ad.setPositiveButton("Так", new DialogInterface.OnClickListener() {
@@ -79,7 +75,8 @@ public class NotesCardAdapter extends RecyclerView.Adapter<NotesCardAdapter.Pers
                         noteDB = new NoteDB(personViewHolder.itemView.getContext());
                         noteDB.deleteNote(data.get(position).getId());
                         synchNotes();
-                        notesActivity.synch();
+                        activity.synch();
+
                     }
                 });
                 ad.setNegativeButton("Ні", new DialogInterface.OnClickListener() {

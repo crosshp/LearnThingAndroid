@@ -84,11 +84,7 @@ public class TestAdapter {
             testQuestion.setAnswer3(cursor.getString(cursor.getColumnIndex(TestColumns.answer3)));
             testQuestion.setAnswer4(cursor.getString(cursor.getColumnIndex(TestColumns.answer4)));
             Integer isOpenQuestion = cursor.getInt(cursor.getColumnIndex(TestColumns.isOpenQuestion));
-            if (isOpenQuestion != 0) {
-                testQuestion.setIsOpenQuestion(true);
-            } else {
-                testQuestion.setIsOpenQuestion(false);
-            }
+            testQuestion.setIsOpenQuestion(isOpenQuestion);
             list.add(testQuestion);
             cursor.moveToNext();
         }

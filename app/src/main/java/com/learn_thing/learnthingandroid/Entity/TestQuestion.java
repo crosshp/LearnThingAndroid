@@ -9,13 +9,13 @@ public class TestQuestion {
     private String answer2;
     private String answer3;
     private String answer4;
-    private boolean isOpenQuestion;
+    private int isOpenQuestion;
 
-    public boolean isOpenQuestion() {
+    public int isOpenQuestion() {
         return isOpenQuestion;
     }
 
-    public void setIsOpenQuestion(boolean isOpenQuestion) {
+    public void setIsOpenQuestion(int isOpenQuestion) {
         this.isOpenQuestion = isOpenQuestion;
     }
 

@@ -1,5 +1,6 @@
 package com.learn_thing.learnthingandroid.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -22,13 +23,20 @@ import java.util.List;
  * Created by Andrew on 27.02.2016.
  */
 public class NotesActivity extends AppCompatActivity {
-    NotesActivity activity = this;
+    Context activity = this;
     static NotesCardAdapter cardAdapter = null;
+    private static int idSubject;
     RecyclerView recyclerView = null;
     FloatingActionButton button = null;
-    Integer idSubject;
     TextView emptyNotes = null;
 
+    public void synch(){
+        cardAdapter.setData(getAllNotes());
+        cardAdapter.notifyDataSetChanged();
+        if (!cardAdapter.getData().isEmpty()) {
+            emptyNotes.setVisibility(View.INVISIBLE);
+        }
+    }
 
     @Override
     protected void onResume() {
@@ -61,7 +69,7 @@ public class NotesActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        cardAdapter = new NotesCardAdapter(getAllNotes());
+        cardAdapter = new NotesCardAdapter(getAllNotes(),this);
         recyclerView.setAdapter(cardAdapter);
 
         button = (FloatingActionButton) findViewById(R.id.addNoteButton);
@@ -75,7 +83,7 @@ public class NotesActivity extends AppCompatActivity {
         });
     }
 
-    public List<Note> getAllNotes() {
+    public  List<Note> getAllNotes() {
         NoteDB noteDB = new NoteDB(activity);
         List<Note> list = noteDB.getAllNotes(idSubject);
         return list;

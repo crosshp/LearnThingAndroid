@@ -1,5 +1,6 @@
 package com.learn_thing.learnthingandroid.Activity.Adapters;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,6 +58,7 @@ public class MethodicListAdapter extends ArrayAdapter<Methodic> {
     }
 
     // заполнение элементов списка
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -73,14 +76,13 @@ public class MethodicListAdapter extends ArrayAdapter<Methodic> {
         // устанавливаем значения компонентам одного эелемента списка
         name.setText(objectItem.getName());
         text.setText(objectItem.getDescription());
-        try (InputStream is = view.getContext().getResources().getAssets().open(String.valueOf(objectItem.getImg()))) {
+        try (InputStream is = view.getContext().getResources().getAssets().open("imageCard" + String.valueOf(objectItem.getImg())+".jpg")) {
             Bitmap bitmapFactory = BitmapFactory.decodeStream(is);
             bitmapFactory = Bitmap.createScaledBitmap(bitmapFactory, 90, 90, false);
             img.setImageBitmap(getRoundedCornerBitmap(bitmapFactory, 90));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         view.offsetLeftAndRight(35);
         view.offsetTopAndBottom(35);
         return view;

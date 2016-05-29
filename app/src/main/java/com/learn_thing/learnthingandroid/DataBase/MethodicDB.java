@@ -76,12 +76,14 @@ public class MethodicDB {
         Cursor cursor = qb.query(mDb, null, null, null, null, null, null);
         List<Methodic> list = new ArrayList<>();
         cursor.moveToFirst();
+        int i = 1;
         while (!cursor.isAfterLast()) {
             Methodic methodic = new Methodic();
             methodic.setId(cursor.getInt(cursor.getColumnIndex(MethodicColumns.id)));
             methodic.setName(cursor.getString(cursor.getColumnIndex(MethodicColumns.name)));
             methodic.setDescription(cursor.getString(cursor.getColumnIndex(MethodicColumns.description)));
-            methodic.setImg(cursor.getInt(cursor.getColumnIndex(MethodicColumns.img)));
+            methodic.setImg(i % 5 + 1);
+            i++;
             if (cursor.getInt(cursor.getColumnIndex(MethodicColumns.interactive)) != 0) {
                 methodic.setIsInteractive(true);
             } else {
@@ -102,7 +104,7 @@ public class MethodicDB {
         methodic.setId(cursor.getInt(cursor.getColumnIndex(MethodicColumns.id)));
         methodic.setName(cursor.getString(cursor.getColumnIndex(MethodicColumns.name)));
         methodic.setDescription(cursor.getString(cursor.getColumnIndex(MethodicColumns.description)));
-        methodic.setImg(cursor.getInt(cursor.getColumnIndex(MethodicColumns.img)));
+        methodic.setImg((id + 1) % 5 + 1);
         if (cursor.getInt(cursor.getColumnIndex(MethodicColumns.interactive)) != 0) {
             methodic.setIsInteractive(true);
         } else {

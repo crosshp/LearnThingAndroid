@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.learn_thing.learnthingandroid.Activity.Adapters.AllNotesCardAdapter;
 import com.learn_thing.learnthingandroid.Activity.Adapters.NotesCardAdapter;
 import com.learn_thing.learnthingandroid.DataBase.NoteDB;
 import com.learn_thing.learnthingandroid.Entity.Note;
@@ -22,10 +23,18 @@ import java.util.List;
  */
 public class AllNotesActivity extends AppCompatActivity {
     AllNotesActivity activity = this;
-    static NotesCardAdapter cardAdapter = null;
+    static AllNotesCardAdapter cardAdapter = null;
     RecyclerView recyclerView = null;
     FloatingActionButton button = null;
     TextView emptyNotes = null;
+
+    public void synch(){
+        cardAdapter.setData(getAllNotes());
+        cardAdapter.notifyDataSetChanged();
+        if (!cardAdapter.getData().isEmpty()) {
+            emptyNotes.setVisibility(View.INVISIBLE);
+        }
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -48,7 +57,7 @@ public class AllNotesActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-        cardAdapter = new NotesCardAdapter(getAllNotes());
+        cardAdapter = new AllNotesCardAdapter(getAllNotes(),this);
         recyclerView.setAdapter(cardAdapter);
         button = (FloatingActionButton) findViewById(R.id.addNoteButton);
         button.setVisibility(View.INVISIBLE);

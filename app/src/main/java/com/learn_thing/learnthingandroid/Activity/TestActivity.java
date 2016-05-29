@@ -1,8 +1,10 @@
 package com.learn_thing.learnthingandroid.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -37,6 +39,7 @@ public class TestActivity extends AppCompatActivity {
     RadioButton answer3Button = null;
     RadioButton answer4Button = null;
     TestAdapter testAdapter = null;
+    int idMethodic = 1;
 
 
     @Override
@@ -45,13 +48,18 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.test_activity);
         nextButton = (Button) findViewById(R.id.action_button);
         radioGroup = (RadioGroup) findViewById(R.id.groupButton);
-        editText = (EditText) findViewById(R.id.responseText);
         questionText = (TextView) findViewById(R.id.questionText);
         answer1Button = (RadioButton) findViewById(R.id.answer1Button);
         answer2Button = (RadioButton) findViewById(R.id.answer2Button);
         answer3Button = (RadioButton) findViewById(R.id.answer3Button);
         answer4Button = (RadioButton) findViewById(R.id.answer4Button);
+        idMethodic = getIntent().getIntExtra("id", 1);
         testQuestions = getQuestions();
+        testQuestions = getQuestionsByID(idMethodic, testQuestions);
+        Log.e("Size", String.valueOf(testQuestions.size()));
+        // testQuestions = getQuestions();
+
+        if (testQuestions == null) finish();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Test");
 
@@ -61,48 +69,33 @@ public class TestActivity extends AppCompatActivity {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Откритий вопрос
-                if (testQuestions.get(currentQuestion - 1).isOpenQuestion()) {
-                    String text = editText.getText().toString();
-                    if (text.length() != 0) {
-                        answersMap.put(currentQuestion, text);
-                        editText.setText("");
-                        editText.setVisibility(View.INVISIBLE);
-                        currentQuestion++;
-                        checkNextQuestion(currentQuestion);
-                    } else {
-                        Toast.makeText(activity, "Заповніть поле!", Toast.LENGTH_LONG).show();
+                int id = radioGroup.getCheckedRadioButtonId();
+                switch (id) {
+                    case -1: {
+                        Toast.makeText(activity, "Оберіть один із варіантів!", Toast.LENGTH_LONG).show();
+                        break;
                     }
-                    // Вопрос с вибором
-                } else {
-                    int id = radioGroup.getCheckedRadioButtonId();
-                    switch (id) {
-                        case -1: {
-                            Toast.makeText(activity, "Оберіть один із варіантів!", Toast.LENGTH_LONG).show();
-                            break;
-                        }
-                        case R.id.answer1Button: {
-                            answersMap.put(currentQuestion, "1");
-                            break;
-                        }
-                        case R.id.answer2Button: {
-                            answersMap.put(currentQuestion, "2");
-                            break;
-                        }
-                        case R.id.answer3Button: {
-                            answersMap.put(currentQuestion, "3");
-                            break;
-                        }
-                        case R.id.answer4Button: {
-                            answersMap.put(currentQuestion, "4");
-                            break;
-                        }
+                    case R.id.answer1Button: {
+                        answersMap.put(currentQuestion, "1");
+                        break;
                     }
-                    if (id != -1) {
-                        radioGroup.clearCheck();
-                        currentQuestion++;
-                        checkNextQuestion(currentQuestion);
+                    case R.id.answer2Button: {
+                        answersMap.put(currentQuestion, "2");
+                        break;
                     }
+                    case R.id.answer3Button: {
+                        answersMap.put(currentQuestion, "3");
+                        break;
+                    }
+                    case R.id.answer4Button: {
+                        answersMap.put(currentQuestion, "4");
+                        break;
+                    }
+                }
+                if (id != -1) {
+                    radioGroup.clearCheck();
+                    currentQuestion++;
+                    checkNextQuestion(currentQuestion);
                 }
             }
         });
@@ -117,28 +110,44 @@ public class TestActivity extends AppCompatActivity {
 
     public void checkNextQuestion(int position) {
         // End of Test
-        if (position == testQuestions.size()) {
+        if (position == testQuestions.size() + 1) {
             Toast.makeText(activity, "Тест успішно пройдений!", Toast.LENGTH_LONG).show();
             testAdapter.close();
-            Intent intent = new Intent(activity, MainActivity.class);
-            activity.startActivity(intent);
+            int result = calculateResult();
+            SharedPreferences.Editor editor = getSharedPreferences("result", MODE_PRIVATE).edit();
+            SharedPreferences sharedPreferences = getSharedPreferences("result", MODE_PRIVATE);
+            int number = sharedPreferences.getInt("numberOfTry", 1);
+            float resultPref = sharedPreferences.getFloat("result", 1);
+            if (result > 5) {
+                editor.putFloat("result", 5 + resultPref);
+            } else {
+                editor.putFloat("result", result + resultPref);
+            }
+            editor.putInt("numberOfTry", number + 1);
+            editor.commit();
+            Toast.makeText(activity,"Ваш результат:" +String.valueOf(result), Toast.LENGTH_LONG).show();
+            finish();
             showMap();
             // Обработка следющего вопроса
         } else {
             TestQuestion testQuestion = testQuestions.get(position - 1);
             questionText.setText(testQuestion.getQuestion());
-            if (testQuestion.isOpenQuestion()) {
-                editText.setVisibility(View.VISIBLE);
-                radioGroup.setVisibility(View.INVISIBLE);
-            } else {
-                editText.setVisibility(View.INVISIBLE);
-                radioGroup.setVisibility(View.VISIBLE);
-                answer1Button.setText(testQuestion.getAnswer1());
-                answer2Button.setText(testQuestion.getAnswer2());
-                answer3Button.setText(testQuestion.getAnswer3());
-                answer4Button.setText(testQuestion.getAnswer4());
+            radioGroup.setVisibility(View.VISIBLE);
+            answer1Button.setText(testQuestion.getAnswer1());
+            answer2Button.setText(testQuestion.getAnswer2());
+            answer3Button.setText(testQuestion.getAnswer3());
+            answer4Button.setText(testQuestion.getAnswer4());
+        }
+    }
+
+    public int calculateResult() {
+        int result = 0;
+        for (int i = 0; i < testQuestions.size(); i++) {
+            if (testQuestions.get(i).isOpenQuestion() == Integer.valueOf(answersMap.get(i + 1))) {
+                result++;
             }
         }
+        return result;
     }
 
     public void showMap() {
@@ -147,7 +156,6 @@ public class TestActivity extends AppCompatActivity {
             s += values + "\n";
             System.out.println(values);
         }
-        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -162,5 +170,44 @@ public class TestActivity extends AppCompatActivity {
     public List<TestQuestion> getQuestions() {
         testAdapter = new TestAdapter(activity);
         return testAdapter.getTestTable();
+    }
+
+    public List<TestQuestion> getQuestionsByID(int id, List<TestQuestion> list) {
+        List<TestQuestion> resultList = list;
+
+        Log.e("ID", String.valueOf(id));
+        switch (id) {
+            case 1: {
+                resultList = resultList.subList(0, 5);
+                break;
+            }
+            case 2: {
+                resultList = resultList.subList(5, 10);
+                break;
+            }
+            case 3: {
+                resultList = resultList.subList(10, 15);
+                break;
+            }
+            case 4: {
+                resultList = resultList.subList(15, 20);
+                break;
+            }
+            case 5: {
+                resultList = resultList.subList(20, 25);
+                break;
+            }
+            case 6: {
+                resultList = resultList.subList(20, 25);
+                break;
+            }
+            case 7: {
+                resultList = null;
+                break;
+            }
+            default:
+                break;
+        }
+        return resultList;
     }
 }

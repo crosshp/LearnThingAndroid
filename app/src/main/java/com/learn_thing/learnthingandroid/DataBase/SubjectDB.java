@@ -26,9 +26,11 @@ public class SubjectDB {
     public SubjectDB(Context context) {
         this.context = context;
         RealmConfiguration config = new RealmConfiguration.Builder(context).build();
-//        Realm.deleteRealm(config);
+     //   Realm.deleteRealm(config);
         Realm.setDefaultConfiguration(config);
         realm = Realm.getInstance(config);
+       /* realm.close();
+        Realm.deleteRealm(config);*/
     }
 
     public void saveSubject(SubjectCard subjectCard) {

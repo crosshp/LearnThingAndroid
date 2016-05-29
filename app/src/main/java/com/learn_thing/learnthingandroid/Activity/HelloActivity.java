@@ -42,7 +42,6 @@ public class HelloActivity extends AppCompatActivity {
                         editor.putString("name", name);
                         editor.commit();
                         activity.startActivity(intent);
-
                     } else {
                         Toast.makeText(activity, "Введіть своє ім’я!", Toast.LENGTH_SHORT).show();
                     }

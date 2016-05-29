@@ -16,6 +16,11 @@ import io.realm.RealmResults;
  */
 public class NoteDB {
     Context context = null;
+
+    public Realm getRealm() {
+        return realm;
+    }
+
     Realm realm = null;
 
     public NoteDB(Context context) {
@@ -23,6 +28,8 @@ public class NoteDB {
         RealmConfiguration config = new RealmConfiguration.Builder(context).build();
         Realm.setDefaultConfiguration(config);
         realm = Realm.getInstance(config);
+      /*  realm.close();
+        Realm.deleteRealm(config);*/
     }
 
     public void saveNote(Note note) {
@@ -41,6 +48,13 @@ public class NoteDB {
         RealmQuery<Note> query = realm.where(Note.class);
         RealmResults realmResults = query.findAll();
         return realmResults.subList(0, realmResults.size());
+    }
+
+    public void deleteNote(int id) {
+        RealmResults<Note> results = realm.where(Note.class).findAll();
+        realm.beginTransaction();
+        results.deleteFromRealm(id-1);
+        realm.commitTransaction();
     }
 }
 

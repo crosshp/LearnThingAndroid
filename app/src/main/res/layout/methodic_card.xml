@@ -7,32 +7,9 @@
     card_view:cardBackgroundColor="@color/card_color"
     card_view:cardElevation="1dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <TextView
-            android:id="@+id/methodicName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-light"
-            android:text="Large Text"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:id="@+id/methodicDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/methodicName"
-            android:layout_toEndOf="@+id/methodicImg"
-            android:fontFamily="sans-serif-light"
-            android:text="Medium Text"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:layout_marginLeft="5dp"
-            android:maxLines="3"
-            android:ellipsize="end" />
 
         <ImageView
             android:id="@+id/methodicImg"
@@ -41,6 +18,37 @@
             android:scaleType="centerCrop"
             android:src="@drawable/menu1"
             android:layout_marginLeft="5dp"
-            android:layout_centerVertical="true" />
-    </RelativeLayout>
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/methodicName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-light"
+                android:text="Large Text"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/methodicDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/methodicName"
+                android:layout_toEndOf="@+id/methodicImg"
+                android:fontFamily="sans-serif-light"
+                android:text="Medium Text"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_marginLeft="5dp"
+                android:maxLines="3"
+                android:ellipsize="end" />
+        </LinearLayout>
+
+    </LinearLayout>
 </android.support.v7.widget.CardView>
